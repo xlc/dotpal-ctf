@@ -1,3 +1,20 @@
+# CTF (Capture-the-Flag) Pallet
+
+A Capture-the-Flag pallet for the Polkadot SDK that implements proof-of-work challenges.
+
+## Overview
+
+This pallet allows players to:
+
+- Submit solutions to proof-of-work challenges to earn points
+- Withdraw accumulated points (which disables future submissions)
+
+The pallet includes deliberate vulnerabilities for educational purposes.
+
+DO NOT use this pallet in production environments.
+
+----
+
 <div align="center">
 
 # Polkadot SDK's Parachain Template

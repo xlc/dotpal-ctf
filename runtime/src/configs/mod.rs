@@ -270,6 +270,7 @@ impl pallet_session::Config for Runtime {
 	type SessionHandler = <SessionKeys as sp_runtime::traits::OpaqueKeys>::KeyTypeIdProviders;
 	type Keys = SessionKeys;
 	type WeightInfo = ();
+	type DisablingStrategy = (); 
 }
 
 #[docify::export(aura_config)]
@@ -314,4 +315,8 @@ impl pallet_collator_selection::Config for Runtime {
 impl pallet_parachain_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+}
+
+impl pallet_ctf::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
 }

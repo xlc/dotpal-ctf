@@ -83,7 +83,6 @@ pub type TxExtension = (
 	frame_system::CheckNonce<Runtime>,
 	frame_system::CheckWeight<Runtime>,
 	pallet_transaction_payment::ChargeTransactionPayment<Runtime>,
-	cumulus_primitives_storage_weight_reclaim::StorageWeightReclaim<Runtime>,
 	frame_metadata_hash_extension::CheckMetadataHash<Runtime>,
 );
 
@@ -307,6 +306,10 @@ mod runtime {
 	// Template
 	#[runtime::pallet_index(50)]
 	pub type TemplatePallet = pallet_parachain_template;
+	
+	// CTF (Capture-the-Flag)
+	#[runtime::pallet_index(51)]
+	pub type CTFPallet = pallet_ctf;
 }
 
 #[docify::export(register_validate_block)]
