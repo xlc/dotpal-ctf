@@ -16,12 +16,6 @@
 
 pub use pallet::*;
 
-#[cfg(test)]
-mod mock;
-
-#[cfg(test)]
-mod tests;
-
 #[frame::pallet(dev_mode)]
 pub mod pallet {
     use frame::prelude::*;

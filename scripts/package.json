@@ -1,0 +1,20 @@
+{
+  "name": "ctf-pallet-interaction",
+  "version": "1.0.0",
+  "description": "Script to interact with the CTF pallet on a Substrate chain",
+  "main": "ctf-interaction.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run ctf-interaction.ts"
+  },
+  "dependencies": {
+    "@polkadot/api": "^10.11.2",
+    "@polkadot/keyring": "^12.6.2",
+    "@polkadot/util": "^12.6.2",
+    "@polkadot/util-crypto": "^12.6.2",
+    "bn.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
