@@ -121,10 +121,8 @@ pub mod pallet {
                 _ => 0,
             };
 
-            // Truncation vulnerability: u32 difficulty cast to u16
-            // The high bits are silently truncated if difficulty >= 65,536
-            let added: u16 = difficulty as u16;
-            points = points.saturating_add(added as u64);
+            let added = 1u64 << difficulty;
+            points = points.saturating_add(added);
 
             // Update the storage
             Score::<T>::insert(&who, ScoreState::Enabled(points));
@@ -180,20 +178,26 @@ pub mod pallet {
             let who_bytes = who.encode();
             let nonce_bytes = nonce.encode();
             let difficulty_bytes = difficulty.encode();
-            let work_bytes = work.encode();
+            let work_bytes = work.as_ref();
 
             // Concatenate the bytes
             let mut input = Vec::new();
             input.extend_from_slice(&who_bytes);
             input.extend_from_slice(&nonce_bytes);
             input.extend_from_slice(&difficulty_bytes);
-            input.extend_from_slice(&work_bytes);
+            input.extend_from_slice(work_bytes);
+
+            log::info!("input: {:?}", input);
 
             // Calculate the hash
             let hash = sp_io::hashing::blake2_256(&input);
 
+            log::info!("hash: {:?}", hash);
+
             // Convert the hash to a numeric value for comparison
-            let hash_value = u256_from_le_bytes(hash);
+            let hash_value = U256::from_little_endian(&hash);
+
+            log::info!("hash_value: {:?}", hash_value);
 
             // Calculate the target value: 2^256 / 2^difficulty
             // This simplifies to 2^(256-difficulty)
@@ -206,18 +210,5 @@ pub mod pallet {
             // The proof is valid if the hash value is less than the target
             Ok(hash_value < target)
         }
-    }
-
-    // Helper function to convert a byte array to U256
-    fn u256_from_le_bytes(bytes: [u8; 32]) -> sp_core::U256 {
-        let mut array = [0u64; 4];
-        for i in 0..4 {
-            let mut value = 0u64;
-            for j in 0..8 {
-                value |= (bytes[i * 8 + j] as u64) << (j * 8);
-            }
-            array[i] = value;
-        }
-        sp_core::U256(array)
     }
 }

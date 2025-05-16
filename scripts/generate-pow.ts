@@ -3,7 +3,7 @@
 // This utility script generates a valid proof-of-work for the CTF pallet
 
 import { u8aToHex, hexToU8a, stringToU8a, u8aConcat } from '@polkadot/util';
-import { blake2AsU8a, cryptoWaitReady } from '@polkadot/util-crypto';
+import { blake2AsU8a, cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
 import { BN } from 'bn.js';
 
 // Default parameters
@@ -27,7 +27,7 @@ async function findValidProofOfWork(
   silent = false
 ): Promise<string | null> {
   // Convert account ID to bytes
-  const accountBytes = stringToU8a(accountId);
+  const accountBytes = decodeAddress(accountId);
   const nonceBytes = new Uint8Array(new BN(nonce).toArray('le', 4));
   const difficultyBytes = new Uint8Array(new BN(difficulty).toArray('le', 4));
   
@@ -92,7 +92,7 @@ function verifyProofOfWork(
   work: string
 ): boolean {
   // Convert inputs to bytes
-  const accountBytes = stringToU8a(accountId);
+  const accountBytes = decodeAddress(accountId);
   const nonceBytes = new Uint8Array(new BN(nonce).toArray('le', 4));
   const difficultyBytes = new Uint8Array(new BN(difficulty).toArray('le', 4));
   const workBytes = hexToU8a(work);
@@ -102,7 +102,6 @@ function verifyProofOfWork(
   
   // Calculate the hash
   const hash = blake2AsU8a(input, 256);
-  
   // Convert hash to BN for comparison
   const hashValue = hashToU256(hash);
   

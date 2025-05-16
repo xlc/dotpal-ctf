@@ -231,10 +231,12 @@ mod runtime {
 
     #[runtime::pallet_index(0)]
     pub type System = frame_system;
-    #[runtime::pallet_index(2)]
+    #[runtime::pallet_index(1)]
     pub type Timestamp = pallet_timestamp;
-    #[runtime::pallet_index(3)]
+    #[runtime::pallet_index(2)]
     pub type ParachainInfo = parachain_info;
+    #[runtime::pallet_index(3)]
+    pub type Utility = pallet_utility;
 
     // Monetary stuff.
     #[runtime::pallet_index(10)]
@@ -260,7 +262,6 @@ mod runtime {
     #[runtime::pallet_index(50)]
     pub type TemplatePallet = pallet_parachain_template;
 
-    // CTF (Capture-the-Flag)
     #[runtime::pallet_index(51)]
     pub type CTFPallet = pallet_ctf;
 }

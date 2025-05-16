@@ -164,6 +164,13 @@ impl pallet_sudo::Config for Runtime {
     type WeightInfo = ();
 }
 
+impl pallet_utility::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type RuntimeCall = RuntimeCall;
+    type PalletsOrigin = crate::OriginCaller;
+    type WeightInfo = ();
+}
+
 impl parachain_info::Config for Runtime {}
 
 parameter_types! {
