@@ -8,7 +8,7 @@ import { BN } from 'bn.js';
 
 // Default parameters
 const DEFAULT_ACCOUNT = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY'; // Alice's address
-const DEFAULT_DIFFICULTY = 10;
+const DEFAULT_DIFFICULTY = 20;
 const DEFAULT_NONCE = 0;
 const DEFAULT_MAX_ATTEMPTS = 1000000;
 
