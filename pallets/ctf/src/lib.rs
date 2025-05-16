@@ -146,7 +146,7 @@ pub mod pallet {
 
             // Ensure difficulty is within valid range
             ensure!(
-                difficulty >= 20 && difficulty <= 256,
+                (20..=256).contains(&difficulty),
                 Error::<T>::InvalidDifficulty
             );
 
@@ -154,9 +154,8 @@ pub mod pallet {
             let score_state = Score::<T>::get(&who);
 
             // Ensure account is not disabled
-            match score_state {
-                ScoreState::Disabled => return Err(Error::<T>::ScoreDisabled.into()),
-                _ => {}
+            if score_state == ScoreState::Disabled {
+                return Err(Error::<T>::ScoreDisabled.into());
             }
 
             let tx_nonce = frame_system::Pallet::<T>::account_nonce(&who);
@@ -223,9 +222,8 @@ pub mod pallet {
             let score_state = Score::<T>::get(&who);
 
             // Ensure account is not disabled
-            match score_state {
-                ScoreState::Disabled => return Err(Error::<T>::ScoreDisabled.into()),
-                _ => {}
+            if score_state == ScoreState::Disabled {
+                return Err(Error::<T>::ScoreDisabled.into());
             }
 
             // Fixed difficulty of 25 for lottery entry

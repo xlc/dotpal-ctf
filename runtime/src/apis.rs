@@ -27,6 +27,7 @@
 use alloc::vec::Vec;
 
 use polkadot_sdk::*;
+use crate::Weight;
 
 use frame_support::genesis_builder_helper::{build_state, get_preset};
 use pallet_aura::Authorities;
